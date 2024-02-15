@@ -56,6 +56,7 @@ window.onkeydown = function (e) {
 };
 
 function operatorClicked(value) {
+
     if (number1 === null) {
       number1 = parseFloat(displayValue);
       operator = value;
@@ -75,6 +76,7 @@ function operatorClicked(value) {
     display.value = display.value + ' ' + symbol + ' '; // Append operator symbol to display
   }
   
+
 
 operators.forEach((operatorInput) => {
   operatorInput.addEventListener('click', (e) => {
@@ -124,7 +126,6 @@ function appendToDisplay(value) {
     decimal.disabled = true;
   }
 }
-
 
 function enableDecimalButton() {
   decimal.disabled = false;
@@ -183,4 +184,4 @@ function operate(number1, number2, operator) {
     default:
       return number1; // Default case for unsupported operators
   }
-}
+
