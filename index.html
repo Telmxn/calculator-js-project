@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <script src="https://kit.fontawesome.com/1c2c2462bf.js" defer></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
@@ -26,26 +28,36 @@
             <i class="fas fa-backspace"></i>
           </button>
         </div>
-        <br />
-        <button class="number" value="7">7</button>
-        <button class="number" value="8">8</button>
-        <button class="number" value="9">9</button>
-        <button class="operand" value="+">+</button>
-        <br />
-        <button class="number" value="4">4</button>
-        <button class="number" value="5">5</button>
-        <button class="number" value="6">6</button>
-        <button class="operand" value="-">-</button>
-        <br />
-        <button class="number" value="1">1</button>
-        <button class="number" value="2">2</button>
-        <button class="number" value="3">3</button>
-        <button class="operand" value="*">*</button>
-        <br />
-        <button class="number" value="0">0</button>
-        <button id="decimal" value=".">.</button>
-        <button id="equals" value="=">=</button>
-        <button class="operand" value="/">/</button>
+        <div class="numbersOperators">
+            <div class="numberRow">
+                <br />
+                <button class="number" value="7">7</button>
+                <button class="number" value="8">8</button>
+                <button class="number" value="9">9</button>
+                <button class="operand" value="+">+</button>
+            </div>
+            <div class="numberRow">
+                <br />
+                <button class="number" value="4">4</button>
+                <button class="number" value="5">5</button>
+                <button class="number" value="6">6</button>
+                <button class="operand" value="-">-</button>
+            </div>
+            <div class="numberRow">
+            <br />
+                <button class="number" value="1">1</button>
+                <button class="number" value="2">2</button>
+                <button class="number" value="3">3</button>
+                <button class="operand" value="*">*</button>
+            </div>
+            <div class="numberRow">
+            <br />
+                <button class="number" value="0">0</button>
+                <button id="decimal" value=".">.</button>
+                <button id="equals" value="=">=</button>
+                <button class="operand" value="/">/</button>
+            </div>
+        </div>
       </div>
     </div>
   </body>
