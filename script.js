@@ -1,91 +1,148 @@
-const display = document.getElementById('#calculator__display');
-display.target.dataset.value = 0;
-let firstNumber = null;
-let operator = null;
-let secondNumber = null;
-let hasDecimal = false; // Flag to track if a decimal point has been used
+const DISPLAY = document.querySelector('.calculator__display');
+const BUTTONS = document.querySelectorAll('.calculator__keys button');
 
-const buttons = document.querySelectorAll('.calculator__keys button');
+const ADD = '+';
+const SUBTRACT = '-';
+const MULTIPLY = 'x';
+const DIVIDE = '÷';
+const CALCULATE = '=';
+const DECIMAL = '.';
+const CLEAR = 'AC';
 
-buttons.forEach(button => {
-  button.addEventListener('click', handleClick);
-});
+const MAX_DISPLAY_LENGTH = 10;
+
+let operator = '';
+let firstValue = '';
+let secondValue = '';
+let hasDecimal = false;
+
+
+BUTTONS.forEach(button => {
+    button.addEventListener('click', handleClick);
+})
+console.log(BUTTONS)
+console.log(DISPLAY.textContent)
 
 function handleClick(event) {
-  const action = event.target.dataset.action;
-  const value = event.target.dataset.value;
+    let buttonClicked = event.target.innerHTML;
+    console.log('button clicked: ' + buttonClicked);
 
-  switch (action) {
-    case 'number':
-      appendNumber(value);
-      break;
-    case 'operator':
-      appendOperator(value);
-      break;
-    case 'decimal':
-      appendDecimal(value);
-      break;
-    case 'clear':
-      clearDisplay();
-      break;
-    case 'calculate':
-      calculate();
-      break;
-  }
-}
+    if (buttonClicked  === DECIMAL) {
+        if (!hasDecimal) {
+            console.log('button clicked is DECIMAL')
+            if (secondValue === '') {
+                hasDecimal = true;
+                firstValue += DECIMAL;
+                updateDisplay(firstValue); 
+            } else {
+                hasDecimal = true;
+                secondValue += DECIMAL;
+                updateDisplay(`${firstValue} ${operator} ${secondValue}`); 
+            }
+        }
+    } else if (buttonClicked === CLEAR) {
+        console.log('the display is cleared!')
+        clearDisplay();
+    } else  if (buttonClicked === CALCULATE) {
+        console.log('equal calculating...')
+        if (!firstValue && !operator && !secondValue) {
+            updateDisplay('Error');
 
-function appendNumber(number) {
-  if (display.value === '0' || operator) {
-    display.value = number;
-  } else {
-    display.value += number;
-  }
-}
-
-function appendOperator(op) {
-  firstNumber = parseFloat(display.value);
-  operator = op;
-  display.value = '0';
-  hasDecimal = false; // Reset decimal flag for next number
-}
-
-function appendDecimal(decimal) {
-  if (!hasDecimal) {
-    display.value += decimal;
-    hasDecimal = true;
-  }
+        }
+        firstValue = operate(operator, firstValue, secondValue).toString();
+        operator = '';
+        secondValue = '';
+        updateDisplay(truncateDisplay(firstValue));
+        console.log(`after equals, firstvalue is now ${firstValue}, operator is ${operator} and secondvalue ${secondValue}`)
+        if (containsDecimal(firstValue)) {
+            hasDecimal = true
+            console.log('First value contains a decimal.');
+        } else {
+            hasDecimal = false;
+            console.log('First value does not contain a decimal.');
+        }
+    } else {
+        createSum(buttonClicked);
+    }
 }
 
 function clearDisplay() {
-  display.value = '0';
-  firstNumber = null;
-  operator = null;
-  secondNumber = null;
-  hasDecimal = false; // Reset decimal flag
+    operator = '';
+    firstValue = '';
+    secondValue = '';
+    hasDecimal = false;
+    return updateDisplay('0');
 }
 
-function calculate() {
-  if (operator) {
-    secondNumber = parseFloat(display.value);
-    let result;
-    switch (operator) {
-      case '+':
-        result = firstNumber + secondNumber;
-        break;
-      case '-':
-        result = firstNumber - secondNumber;
-        break;
-      case '*':
-        result = firstNumber * secondNumber;
-        break;
-      case '/':
-        if (secondNumber === 0) {
-          result = 'Error: Division by zero';
-        } else {
-          result = firstNumber / secondNumber;
+function containsDecimal(value) {
+    for (let i = 0; i < value.length; i++) {
+        if (value[i] === DECIMAL) {
+            return true;
         }
-        break;
     }
-    display.value
-  }
+    return false;
 }
+
+function truncateDisplay(value) {
+    if (value.length > MAX_DISPLAY_LENGTH) {
+        return value.substring(0, MAX_DISPLAY_LENGTH);
+    }
+    return value;
+}
+
+function isNumber(number) {
+    return !isNaN(number);
+}
+
+function updateDisplay(value) {
+    DISPLAY.innerHTML = value;
+}
+
+function createSum(value) {
+    if (isNumber(value) && operator === '') {
+        firstValue += value;
+        console.log('first value is: ' + firstValue);
+        updateDisplay(firstValue); 
+    } else {
+        checkOperator(value)
+        console.log('operator is: ' + operator);
+        updateDisplay(`${firstValue} ${operator}`);
+    }
+
+    if (isNumber(value) && operator && firstValue) {
+        hasDecimal = false;
+        secondValue += value;
+        updateDisplay(`${firstValue} ${operator} ${secondValue}`);
+    }
+}
+
+function checkOperator(value) {
+    if (value === ADD) {
+        return operator = '+'
+    } else if (value === SUBTRACT) {
+        return operator = '-'
+    } else if (value === MULTIPLY) {
+        return operator = 'x'
+    } else if (value === DIVIDE) {
+        return operator = '÷'
+    }
+}
+
+function operate(operator, firstValue, secondValue) {
+    switch (operator) {
+        case ADD:
+            return Number(firstValue) + Number(secondValue)
+        case SUBTRACT:
+            return Number(firstValue) - Number(secondValue)
+        case MULTIPLY:
+            return Number(firstValue) * Number(secondValue)
+        case DIVIDE:
+            if (secondValue === '0') {
+                return 'Error';
+            }
+            return Number(firstValue) / Number(secondValue)
+        default:
+            return 'Error'
+    }    
+}
+
