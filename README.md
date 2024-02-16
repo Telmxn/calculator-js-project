@@ -24,3 +24,5 @@ This project implements a basic calculator using HTML, CSS, and JavaScript. User
 - CSS
 
 ## Preview Link
+
+- https://telmxn.github.io/calculator-js-project/
