@@ -49,7 +49,7 @@ window.onkeydown = function (e) {
       e.key
     )
   ) {
-    appendToDisplay(e.key); //keyboard entry
+    appendToDisplay(e.key);
   } else if (['-', '+', '*', '/'].includes(e.key)) {
     operatorClicked(e.key);
   }
@@ -59,7 +59,7 @@ function operatorClicked(value) {
     if (number1 === null) {
       number1 = parseFloat(displayValue);
       operator = value;
-      updateDisplay(operator); // Update display with operator symbol
+      updateDisplay(operator); 
     } else if (number1 !== null && operator !== null && typingNumber2) {
       number2 = parseFloat(displayValue);
       number1 = operate(number1, number2, operator);
@@ -72,7 +72,7 @@ function operatorClicked(value) {
   }
   
   function updateDisplay(symbol) {
-    display.value = display.value + ' ' + symbol + ' '; // Append operator symbol to display
+    display.value = display.value + ' ' + symbol + ' '; 
   }
   
 
@@ -84,7 +84,7 @@ operators.forEach((operatorInput) => {
   });
 });
 
-// Listen for equal button click
+
 function calculate() {
   if (number1 !== null && operator !== null) {
     number2 = parseFloat(displayValue);
@@ -97,7 +97,7 @@ function calculate() {
       displayValue = '';
       typingNumber2 = false;
     } else {
-      number1 = null; //if there is no value in the input field
+      number1 = null; 
     }
   }
 }
@@ -108,9 +108,9 @@ function appendToDisplay(value) {
     displayValue = '';
     typingNumber2 = true;
   }
-  // Check if the value is a decimal and if there's already a decimal in the display
+  
   if (value === '.' && displayValue.includes('.')) {
-    return; // Don't allow multiple decimals
+    return; 
   }
 
   const limit = 26;
@@ -119,7 +119,7 @@ function appendToDisplay(value) {
     displayValue = display.value;
   }
 
-  // Disable the decimal button if there's already a decimal in the display
+ 
   if (value === '.') {
     decimal.disabled = true;
   }
@@ -129,11 +129,10 @@ function enableDecimalButton() {
   decimal.disabled = false;
 }
 
-// clear.addEventListener("click", clearDisplay)
+
 function clearDisplay() {
   display.value = '';
   displayValue = '';
-  // displayValue = null;
   number1 = null;
   number2 = null;
   operator = null;
@@ -180,6 +179,6 @@ function operate(number1, number2, operator) {
       }
       return divide(number1, number2);
     default:
-      return number1; // Default case for unsupported operators
+      return number1; 
   }
 }
