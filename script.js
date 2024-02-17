@@ -56,6 +56,7 @@ window.onkeydown = function (e) {
 function operatorClicked(value) {
   if (number1 === null) {
     number1 = parseFloat(displayValue);
+    operator = value;
   } else if (number1 !== null && operator !== null && typingNumber2) {
     number2 = parseFloat(displayValue);
     number1 = operate(number1, number2, operator);
@@ -64,6 +65,7 @@ function operatorClicked(value) {
     typingNumber2 = false;
   }
   operator = value;
+  updateDisplay(operator)
   document.querySelectorAll(".operand").forEach((operand) => {
     operand.classList.remove("active");
   });
@@ -74,7 +76,7 @@ function operatorClicked(value) {
 }
 
 function updateDisplay(symbol) {
-  display.value = display.value + " " + symbol + " ";
+  display.value += " " + symbol + " ";
 }
 
 operators.forEach((operatorInput) => {
