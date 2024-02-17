@@ -113,8 +113,13 @@ function appendToDisplay(value) {
 
   const limit = 26;
   if (display.value.length <= limit) {
-    display.value += value;
-    displayValue = display.value;
+    if (display.value == 0 && value == 0) {
+      display.value = "0";
+      displayValue = "0";
+    } else {
+      display.value += value;
+      displayValue = display.value;
+    }
   }
 
  
