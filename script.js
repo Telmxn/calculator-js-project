@@ -27,7 +27,6 @@ clear.addEventListener("click", (e) => {
 });
 decimal.addEventListener("click", (e) => {
   appendToDisplay(".");
-  this.disabled = true;
 });
 backspace.addEventListener("click", (e) => {
   backSpace();
