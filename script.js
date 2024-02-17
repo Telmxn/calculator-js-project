@@ -34,7 +34,6 @@ backspace.addEventListener('click', (e) => {
 });
 
 window.onkeydown = function (e) {
-  console.log(e.key);
   if (e.key === 'Enter') {
     console.log(e.key);
     calculate();
